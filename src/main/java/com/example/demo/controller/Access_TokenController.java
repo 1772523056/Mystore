@@ -55,6 +55,7 @@ public class Access_TokenController {
             userService.createOrUpdate(user);
             response.addCookie (new Cookie ("Token",token ));
 
+
             return "redirect:/";
         }
         return "index";
