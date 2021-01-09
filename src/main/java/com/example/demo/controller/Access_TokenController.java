@@ -54,6 +54,7 @@ public class Access_TokenController {
             user.setAvatarUrl (githubUserDTO.getAvatar_url ());
             userService.createOrUpdate(user);
             response.addCookie (new Cookie ("Token",token ));
+
             return "redirect:/";
         }
         return "index";
