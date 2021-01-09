@@ -53,6 +53,7 @@ public class Access_TokenController {
             user.setAccountId (String.valueOf (githubUserDTO.getId ()));
             user.setAvatarUrl (githubUserDTO.getAvatar_url ());
             userService.createOrUpdate(user);
+            System.out.println ();
             response.addCookie (new Cookie ("Token",token ));
 
 
