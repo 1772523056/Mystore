@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.DTO.CommentDTO;
 import com.example.demo.DTO.PagesDTO;
 import com.example.demo.DTO.QuestionDTO;
 import com.example.demo.exception.CustomizeErrorCode;
@@ -11,7 +10,6 @@ import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Question;
 import com.example.demo.model.QuestionExample;
 import com.example.demo.model.User;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
