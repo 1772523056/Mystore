@@ -4,6 +4,12 @@ function post() {
     comment2Target(questionId, 1, content);
 }
 
+function sethover(e){
+    comments.addClass("in");
+    // 标记二级评论展开状态
+    e.setAttribute("data-collapse", "in");
+    e.classList.add("active");
+}
 function comment2Target(targetId, type, content) {
     $.ajax({
         type: "POST",
@@ -22,7 +28,7 @@ function comment2Target(targetId, type, content) {
                 if (response.code == 2003) {
                     if (confirm(response.message)) {
                         window.open("https://github.com/login/oauth/authorize?client_id=3783cac01f9c1383eb5" +
-                            "c&redirect_uri=http://localhost:8080/callback&scope=user%20public_repo&state=2")
+                            "c&redirect_uri=http://http://8.136.98.151:8090//callback&scope=user%20public_repo&state=2")
                         window.localStorage.setItem("closable", true);
                     }
                 } else

@@ -34,6 +34,18 @@ public class CommentService {
     @Autowired
     NotificationMapper notificationMapper;
 
+    public void updateLikeCount (Integer id) {
+        Comment comment=new Comment ();
+        comment.setId (id);
+        comment.setLikeCount (1L);
+        commentExtMapper.updateLikeCount (comment);
+//            Question question=new Question ();
+//            question.setId (id);
+//            question.setViewCount (1);
+//            questionExtMapper.updateView (question);
+
+    }
+
     @Transactional
     public void insert (Comment comment,User user) {
         if (comment.getParentId () == null || comment.getParentId () == 0) {

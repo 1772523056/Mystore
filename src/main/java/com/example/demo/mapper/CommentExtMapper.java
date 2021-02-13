@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface CommentExtMapper {
     int updateCommentCount (Comment  record);
+    int updateLikeCount (Comment  record);
 }
