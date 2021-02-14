@@ -71,11 +71,13 @@
                                 <div class="myColorWhite" th:text="${comment.content}"></div>
                                 <div class="menu">
 
-                                    <a th:href="@{'/commentlikes/'+${comment.id}+'/'+${question.id}}" id="a"><span
+
+                                        <span
                                         class="glyphicon glyphicon-thumbs-up like-hp icon"
-                                        th:text="''+${comment.likeCount}" onclick="sethover(this)"
-                                        th:fragment="table_refresh"></span></a>
-                                    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error!=null}"></div>
+                                        th:text="''+${comment.likeCount}"  th:id="${'commentlike-'+comment.id}" th:data-id1="${comment.id}"
+                                         onclick="sethover(this)"></span>
+
+
                                     <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.id}"
                                           onclick="collapseComments(this)"
                                           th:text="''+${comment.commentCount}"></span>

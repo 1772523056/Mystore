@@ -5,10 +5,39 @@ function post() {
 }
 
 function sethover(e){
-    comments.addClass("in");
-    // 标记二级评论展开状态
-    e.setAttribute("data-collapse", "in");
-    e.classList.add("active");
+    var commentId = e.getAttribute("data-id1");
+    var comments = $("#commentlike-" + commentId);
+    var like=$(comments.get(0));
+    console.log(like);
+
+    $.ajax({
+        type: "POST",
+        url: "/commentlike",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "commentId": commentId,
+        }),
+
+        success: function (response) {
+                if (response.code == 2003) {
+                    if (confirm(response.message)) {
+                        window.open("https://github.com/login/oauth/authorize?client_id=3783cac01f9c1383eb5" +
+                            "c&redirect_uri=http://8.136.98.151:8090/callback&scope=user%20public_repo&state=2"
+                        )
+                        window.localStorage.setItem("closable", true);
+                    }
+                } else{
+                    let likeCounts = response.likeCounts;
+                    e.classList.add("active");
+                    like.html(likeCounts);
+                //    <span class="glyphicon glyphicon-thumbs-up like-hp icon active" id="commentlike-12" data-id1="12" onclick="sethover(this)">67</span>
+                }
+            console.log(response);
+        },
+        dataType: "json"
+    });
+
+
 }
 function comment2Target(targetId, type, content) {
     $.ajax({
@@ -28,7 +57,7 @@ function comment2Target(targetId, type, content) {
                 if (response.code == 2003) {
                     if (confirm(response.message)) {
                         window.open("https://github.com/login/oauth/authorize?client_id=3783cac01f9c1383eb5" +
-                            "c&redirect_uri=http://http://8.136.98.151:8090//callback&scope=user%20public_repo&state=2")
+                            "c&redirect_uri=http://8.136.98.151:8090/callback&scope=user%20public_repo&state=2")
                         window.localStorage.setItem("closable", true);
                     }
                 } else

@@ -9,5 +9,5 @@ public class CommentCreateDTO {
     private String content;
     private Integer type;
     private Integer commentator;
-    private Long likeCount;
+    private Integer commentId;
 }

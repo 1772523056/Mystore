@@ -39,11 +39,6 @@ public class CommentService {
         comment.setId (id);
         comment.setLikeCount (1L);
         commentExtMapper.updateLikeCount (comment);
-//            Question question=new Question ();
-//            question.setId (id);
-//            question.setViewCount (1);
-//            questionExtMapper.updateView (question);
-
     }
 
     @Transactional
@@ -143,5 +138,10 @@ public class CommentService {
 //            commentDTOs.add (commentDTO);
 //        }
         return commentDTOs;
+    }
+
+    public Long getLikeCount (Integer commentId) {
+        Comment comment=commentMapper.selectByPrimaryKey (commentId);
+        return comment.getLikeCount ();
     }
 }

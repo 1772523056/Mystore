@@ -27,40 +27,19 @@ public class CommentController {
     UserMapper userMapper;
 
 
-
-    @GetMapping("/commentlikes/{commentId}/{questionId}")
-    public String question(@PathVariable(name="commentId") Integer commentId,
-                           @PathVariable(name="questionId") Integer questionId,
-                           Model model,
-                           HttpServletRequest request) {
-        String token = null;
-        User user = null;
-        if (request.getCookies () != null) {
-            Cookie[] cookies = request.getCookies ();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName ().equals ("Token")) {
-                    token = cookie.getValue ();
-                    UserExample userExample = new UserExample ();
-                    userExample.createCriteria ()
-                            .andTokenEqualTo (token);
-                    List<User> users = userMapper.selectByExample (userExample);
-                    if (users.size () != 0) {
-                        request.getSession ().setAttribute ("user", users.get (0));
-
-                    }
-                    break;
-                }
-            }
-        }
-        user = (User) request.getSession ().getAttribute ("user");
+    @ResponseBody
+    @RequestMapping(value = "/commentlike", method = RequestMethod.POST)
+    public Object likes (@RequestBody CommentCreateDTO commentCreateDTO,
+                        HttpServletRequest request) {
+        User user = (User) request.getSession ().getAttribute ("user");
         if (user == null) {
-            model.addAttribute ("error", "用户未登陆");
-            return "redirect:/question/"+questionId;
+            return ResultDTO.errorOf (CustomizeErrorCode.NO_LOG_IN);
         }
-        commentService.updateLikeCount (commentId);
-        return "redirect:/question/"+questionId;
-
+        commentService.updateLikeCount (commentCreateDTO.getCommentId ());
+        Long likeCount = commentService.getLikeCount (commentCreateDTO.getCommentId ());
+        return ResultDTO.likeCounts (likeCount);
     }
+
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public Object post (@RequestBody CommentCreateDTO commentCreateDTO,
@@ -79,12 +58,10 @@ public class CommentController {
             comment.setTimeCreate (System.currentTimeMillis ());
             comment.setTimeModify (System.currentTimeMillis ());
             comment.setType (commentCreateDTO.getType ());
+            comment.setLikeCount (0L);
             comment.setCommentator (user.getId ());
-            comment.setLikeCount (commentCreateDTO.getLikeCount ());
             comment.setCommentCount (0);
             commentService.insert (comment, user);
-        }else{
-
         }
         return ResultDTO.okOf ();
     }
