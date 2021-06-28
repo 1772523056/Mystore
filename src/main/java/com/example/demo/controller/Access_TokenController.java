@@ -52,20 +52,19 @@ public class Access_TokenController {
             user.setName (githubUserDTO.getName ());
             user.setAccountId (String.valueOf (githubUserDTO.getId ()));
             user.setAvatarUrl (githubUserDTO.getAvatar_url ());
-            userService.createOrUpdate(user);
+            userService.createOrUpdate (user);
             System.out.println ();
-            response.addCookie (new Cookie ("Token",token ));
-
-
+            response.addCookie (new Cookie ("Token", token));
             return "redirect:/";
         }
         return "index";
     }
+
     @GetMapping("/logout")
-    public String logOut(HttpServletRequest request,
-                         HttpServletResponse response){
+    public String logOut (HttpServletRequest request,
+                          HttpServletResponse response) {
         request.getSession ().removeAttribute ("user");
-        Cookie cookie=new Cookie ("Token", null);
+        Cookie cookie = new Cookie ("Token", null);
         cookie.setMaxAge (0);
         response.addCookie (cookie);
         return "redirect:/";

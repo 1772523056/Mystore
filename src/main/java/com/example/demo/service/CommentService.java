@@ -66,7 +66,6 @@ public class CommentService {
             createNotify (comment, receiver,user.getName (),question.getTitle (),
                     question.getId (), NotificationTypeEnums.COMMENT_REPLY);
         } else {
-
             Question question = questionMapper.selectByPrimaryKey (comment.getParentId ());
             if (question == null) {
                 throw new CustomizeException (CustomizeErrorCode.QUESTION_NOT_FOUND);

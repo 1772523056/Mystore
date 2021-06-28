@@ -22,7 +22,7 @@ function sethover(e){
                 if (response.code == 2003) {
                     if (confirm(response.message)) {
                         window.open("https://github.com/login/oauth/authorize?client_id=3783cac01f9c1383eb5" +
-                            "c&redirect_uri=http://8.136.98.151:8090/callback&scope=user%20public_repo&state=2"
+                            "c&redirect_uri=http://localhost:8090/callback&scope=user%20public_repo&state=2"
                         )
                         window.localStorage.setItem("closable", true);
                     }
@@ -57,7 +57,7 @@ function comment2Target(targetId, type, content) {
                 if (response.code == 2003) {
                     if (confirm(response.message)) {
                         window.open("https://github.com/login/oauth/authorize?client_id=3783cac01f9c1383eb5" +
-                            "c&redirect_uri=http://8.136.98.151:8090/callback&scope=user%20public_repo&state=2")
+                            "c&redirect_uri=http://localhost:8090/callback&scope=user%20public_repo&state=2")
                         window.localStorage.setItem("closable", true);
                     }
                 } else
